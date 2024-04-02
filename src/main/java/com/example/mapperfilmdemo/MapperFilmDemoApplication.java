@@ -14,7 +14,7 @@ public class MapperFilmDemoApplication {
         SpringApplication.run(MapperFilmDemoApplication.class, args);
     }
 
-
+/*
     @Bean
     public CommandLineRunner demo(KundRepo kundRepo, KontoRepo kontoRepo) {
         return (args) -> {
@@ -28,8 +28,9 @@ public class MapperFilmDemoApplication {
             kundRepo.save(kund3);
 
             Konto konto1 = new Konto(null, 1000, 2, "5784857464", kund1);
-            Konto konto2 = new Konto(null, 1000, 2, "5784857464", kund2);
-            Konto konto3 = new Konto(null, 1000, 2, "5784857464", kund3);
+            Konto konto2 = new Konto(null, 1000, 2, "5784857465", kund2);
+            Konto konto3 = new Konto(null, 1000, 2, "5784857466", kund3);
+            Konto konto3 = new Konto(null, 5000, 2, "5784857467", kund3);
 
             kontoRepo.save(konto1);
             kontoRepo.save(konto2);
@@ -37,7 +38,7 @@ public class MapperFilmDemoApplication {
 
 
         };
-    }
+    }*/
 }
 
 
