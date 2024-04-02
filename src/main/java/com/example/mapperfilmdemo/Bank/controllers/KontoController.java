@@ -2,7 +2,6 @@ package com.example.mapperfilmdemo.Bank.controllers;
 
 
 import com.example.mapperfilmdemo.Bank.dtos.DetailedKontoDto;
-import com.example.mapperfilmdemo.Bank.dtos.DetailedKundDto;
 import com.example.mapperfilmdemo.Bank.models.Konto;
 import com.example.mapperfilmdemo.Bank.repos.KontoRepo;
 import com.example.mapperfilmdemo.Bank.services.KontoService;
@@ -22,12 +21,29 @@ public class KontoController {
 
     @RequestMapping("konton")
     public List<DetailedKontoDto> getAllKonton(){
-        return kontoService.getAllKonton();
+        return kontoService.getAllKonto();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+
 
     @RequestMapping("konton/add")
     public void addKund(@RequestBody DetailedKontoDto kontoDTO){
         kontoService.addNewKonto(kontoDTO);
     }
+
+     */
 
 }

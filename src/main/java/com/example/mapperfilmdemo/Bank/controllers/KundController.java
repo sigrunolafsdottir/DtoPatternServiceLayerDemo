@@ -22,12 +22,23 @@ public class KundController {
 
     @RequestMapping("kunder")
     public List<DetailedKundDto> getAllKunder(){
-        return kundService.getAllCustomers();
+        return kundService.getAllKunder();
     }
+
+
+
+}
+
+
+
+
+
+
+/*
+
 
     @RequestMapping("kunder/add")
     public void addKund(@RequestBody DetailedKundDto kundDTO){
         kundService.addNewKund(kundDTO);
     }
-
-}
+ */
