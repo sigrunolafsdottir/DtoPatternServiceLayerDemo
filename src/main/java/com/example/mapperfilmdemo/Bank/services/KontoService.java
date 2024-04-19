@@ -13,7 +13,11 @@ public interface KontoService {
     public KontoDto kontoToKontoDto(Konto k);
     public DetailedKontoDto kontoToDtailedKontoDto(Konto k);
 
+    public Konto detailedKontoDtoToKonto(DetailedKontoDto k, Kund kund);
+
     public List<DetailedKontoDto> getAllKonto();
+
+    public String addKonto(DetailedKontoDto konto);
 
 }
 

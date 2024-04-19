@@ -18,10 +18,18 @@ import java.util.List;
 public class KontoServiceImpl implements KontoService {
 
     final private KontoRepo kr;
+    final private KundRepo kundRepo;
 
     @Override
     public List<DetailedKontoDto> getAllKonto() {
         return kr.findAll().stream().map(k-> kontoToDtailedKontoDto(k)).toList();
+    }
+
+    @Override
+    public String addKonto(DetailedKontoDto konto) {
+        Kund kund = kundRepo.findById(konto.getKund().getId()).get();
+        kr.save(detailedKontoDtoToKonto(konto, kund));
+        return "Konto sparades";
     }
 
     @Override
@@ -34,6 +42,12 @@ public class KontoServiceImpl implements KontoService {
         return DetailedKontoDto.builder().Id(k.getId()).saldo(k.getSaldo())
                 .ranta(k.getRanta()).kontonummer(k.getKontonummer())
                 .kund(new KundDto(k.getKund().getId(), k.getKund().getName())).build();
+    }
+
+    @Override
+    public Konto detailedKontoDtoToKonto(DetailedKontoDto k, Kund kund) {
+        return Konto.builder().Id(k.getId()).ranta(k.getRanta()).saldo(k.getSaldo())
+                .kontonummer(k.getKontonummer()).kund(kund).build();
     }
 
 
