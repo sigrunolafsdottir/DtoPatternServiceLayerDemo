@@ -15,7 +15,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -25,19 +27,16 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+@SpringBootTest
 class KundServiceImplTest {
-
-  //  @Mock
-  //  private KontoRepo kontoRepo;
 
     @Mock
     private KundRepo kundRepo;
 
+    //Injecten verkar inte funka... DÄrför skapar jag servicar längre ner vid behov
     @InjectMocks
-    private KundServiceImpl service;
+    private KundServiceImpl service = new KundServiceImpl(kundRepo);
 
-    @InjectMocks
-    private KontoServiceImpl kontoService;
 
     long kontoId = 1L;
     long kundId = 2L;
@@ -60,16 +59,20 @@ class KundServiceImplTest {
 
     @Test
     void getAllKunder() {
+        //krångel att injecta repot i servicen längst upp i klassen
         when(kundRepo.findAll()).thenReturn(Arrays.asList(kund));
-        List<DetailedKundDto> allKunder = service.getAllKunder();
-        System.out.println(allKunder.size() );
+        KundServiceImpl service2 = new KundServiceImpl(kundRepo);
+
+        List<DetailedKundDto> allKunder = service2.getAllKunder();
         assertTrue(allKunder.size() == 1);
     }
 
     @Test
     void addKund() {
+        //krångel att injecta repot i servicen längst upp i klassen
         when(kundRepo.save(kund)).thenReturn(kund);
-        String feedback = service.addKund(detailedKundDto);
+        KundServiceImpl service2 = new KundServiceImpl(kundRepo);
+        String feedback = service2.addKund(detailedKundDto);
         assertTrue(feedback.equalsIgnoreCase("Kunden har sparats"));
     }
 

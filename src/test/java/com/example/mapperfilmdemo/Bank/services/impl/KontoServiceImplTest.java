@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class KontoServiceImplTest {
 
     @Mock
@@ -36,7 +38,7 @@ class KontoServiceImplTest {
     private KundRepo kundRepo;
 
     @InjectMocks
-    private KontoServiceImpl service;
+    private KontoServiceImpl service = new KontoServiceImpl(kontoRepo, kundRepo);
 
     long kontoId = 1L;
     long kundId = 2L;
@@ -59,7 +61,8 @@ class KontoServiceImplTest {
     @Test
     void getAllKonto() {
         when(kontoRepo.findAll()).thenReturn(Arrays.asList(konto));
-        List<DetailedKontoDto> allKontos = service.getAllKonto();
+        KontoServiceImpl service2 = new KontoServiceImpl(kontoRepo, kundRepo);
+        List<DetailedKontoDto> allKontos = service2.getAllKonto();
 
         assertTrue(allKontos.size() == 1);
     }
@@ -68,8 +71,9 @@ class KontoServiceImplTest {
     void addKonto() {
         when(kontoRepo.save(konto)).thenReturn(konto);
         when(kundRepo.findById(konto.getKund().getId())).thenReturn(Optional.ofNullable(kund));
+        KontoServiceImpl service2 = new KontoServiceImpl(kontoRepo, kundRepo);
 
-        String feedback = service.addKonto(detailedKontoDto);
+        String feedback = service2.addKonto(detailedKontoDto);
         System.out.println("feedback"+feedback);
         assertTrue(feedback.equalsIgnoreCase("Konto sparades"));
     }

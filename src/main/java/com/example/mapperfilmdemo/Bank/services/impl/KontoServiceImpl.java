@@ -14,11 +14,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class KontoServiceImpl implements KontoService {
 
     final private KontoRepo kr;
     final private KundRepo kundRepo;
+
+    public KontoServiceImpl(KontoRepo kr, KundRepo kundRepo){
+        this.kr=kr;
+        this.kundRepo=kundRepo;
+    }
 
     @Override
     public List<DetailedKontoDto> getAllKonto() {

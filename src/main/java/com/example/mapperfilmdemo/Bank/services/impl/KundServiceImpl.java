@@ -15,11 +15,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class KundServiceImpl implements KundService {
 
    // private final KontoService kontoService;
     private final KundRepo kundRepo;
+
+    public KundServiceImpl(KundRepo kundRepo){
+        this.kundRepo = kundRepo;
+    }
 
     @Override
     public List<DetailedKundDto> getAllKunder() {
